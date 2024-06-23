@@ -1,6 +1,7 @@
 // `app/page.tsx` is the UI for the `/` URL
 "use client"
 import {useState} from "react";
+import {useRouter} from "next/navigation";
 
 interface formData {
     name: string;
@@ -29,6 +30,7 @@ export default function Page() {
     const [isConfirmPasswordDisabled, setIsConfirmPasswordDisabled] = useState(true);
 
     const [error, setError] = useState<errorFormData>({});
+    const router = useRouter()
 
     const handleChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
         const {name, value} = event.target;
@@ -131,13 +133,14 @@ export default function Page() {
 
     const onHandleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
-        alert("click");
         await validate()
+
+        router.push(`/register/success`)
     }
 
     return (
         <div className="min-h-screen bg-gray-100 p-0 sm:p-12">
-            <div className="mx-auto max-w-xl px-6 py-12 bg-white border-0 shadow-lg sm:rounded-3xl">
+            <div className="mx-auto max-w-xl px-6 py-12 bg-white border-0 shadow-lg sm:rounded-3xl mt-44">
                 <h1 className="text-2xl font-bold pl-3 mb-8 text-left">Register</h1>
                 <form id="form" noValidate>
                     <div className="w-full md:w-full px-3 mb-6 md:mb-0">
